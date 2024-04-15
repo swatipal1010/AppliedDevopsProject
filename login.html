@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <div id="message"></div>
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <input type="submit" value="Login" onclick="login()">
+    </form>
+
+    <script>
+        function login() {
+            event.preventDefault();
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            var users = {
+                "user1": "password1",
+                "user2": "password2",
+                "user3": "password3",
+                "user4": "password4",
+                "user5": "password5"
+            };
+
+            if (users.hasOwnProperty(username)) {
+                if (users[username] === password) {
+                    document.getElementById('message').innerText = "Login successful";
+                } else {
+                    document.getElementById('message').innerText = "Incorrect password";
+                }
+            } else {
+                document.getElementById('message').innerText = "User does not exist";
+            }
+        }
+    </script>
+</body>
+
+</html>
