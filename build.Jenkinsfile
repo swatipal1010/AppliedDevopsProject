@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE_NAME = 'your-dockerhub-username/calculator-app'
+        DOCKER_IMAGE_NAME = 'swati1010/calculator-app'
         DOCKERFILE_PATH = 'Dockerfile'
         CALCULATOR_DIR = 'Calculator'
     }
@@ -11,8 +11,11 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Docker image using Dockerfile
-                    bat "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ${CALCULATOR_DIR}"
+                    // Navigate to the project root directory where Dockerfile is located
+                    dir('AppliedDevopsProject') {
+                        // Build Docker image using Dockerfile and Calculator directory
+                        bat "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ${CALCULATOR_DIR}"
+                    }
                 }
             }
         }
@@ -21,10 +24,10 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                     script {
-                        // Login to Docker Hub using credentials stored in the jenkins server
+                        // Login to Docker Hub using credentials
                         bat "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
 
-                        // Pushing Docker image to Docker Hub
+                        // Push Docker image to Docker Hub
                         bat "docker push ${DOCKER_IMAGE_NAME}"
                     }
                 }
