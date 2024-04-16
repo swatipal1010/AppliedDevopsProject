@@ -12,9 +12,9 @@ pipeline {
             steps {
                 script {
                     // Navigate to the project root directory where Dockerfile is located
-                    dir('AppliedDevopsProject') {
-                        // Build Docker image using Dockerfile and Calculator directory
-                        bat "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ${CALCULATOR_DIR}"
+                    dir('C:\\Users\\91983\\.jenkins\\workspace\\Calculator\\AppliedDevopsProject') {
+                        // Build Docker image using Dockerfile and current directory as build context
+                        bat "docker build -t swati1010/calculator-app -f Dockerfile ."
                     }
                 }
             }
