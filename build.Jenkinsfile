@@ -8,10 +8,20 @@ pipeline {
     }
 
     stages {
+        stage('Debug Info') {
+            steps {
+                script {
+                    echo "Jenkins agent working directory: ${pwd()}"
+                    bat "docker --version"
+                    bat "docker info"
+                    bat "echo 'Docker Hub credentials: ${DOCKERHUB_USERNAME}:${DOCKERHUB_PASSWORD}'"
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Navigate to the project root directory where Dockerfile is located
                     dir('C:/Users/91983/OneDrive/Desktop/Web Dev/AppliedDevopsProject') {
                         // Build Docker image using Dockerfile and current directory as build context
                         bat "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ."
@@ -24,8 +34,9 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                     script {
+                        echo "Pushing Docker image: ${DOCKER_IMAGE_NAME}"
                         // Login to Docker Hub using credentials
-                        bat "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
+                        bat "echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin"
 
                         // Push Docker image to Docker Hub
                         bat "docker push ${DOCKER_IMAGE_NAME}"
