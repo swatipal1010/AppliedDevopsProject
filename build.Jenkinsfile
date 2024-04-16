@@ -12,9 +12,9 @@ pipeline {
             steps {
                 script {
                     // Navigate to the project root directory where Dockerfile is located
-                    dir('C:\Users\91983\OneDrive\Desktop\Web Dev\AppliedDevopsProject') {
+                    dir('C:/Users/91983/OneDrive/Desktop/Web Dev/AppliedDevopsProject') {
                         // Build Docker image using Dockerfile and current directory as build context
-                        bat "docker build -t swati1010/calculator-app -f Dockerfile ."
+                        bat "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ."
                     }
                 }
             }
