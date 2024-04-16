@@ -21,10 +21,10 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                     script {
-                        // Login to Docker Hub using credentials
+                        // Login to Docker Hub using credentials stored in the jenkins server
                         bat "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
 
-                        // Push Docker image to Docker Hub
+                        // Pushing Docker image to Docker Hub
                         bat "docker push ${DOCKER_IMAGE_NAME}"
                     }
                 }
