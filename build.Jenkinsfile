@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 bat 'dir' 
-                bat 'Hurray!!Pipelie run sucessfully.' 
+                bat 'echo Hurray!! Pipelie run sucessfully.' 
             }
         }
     }
