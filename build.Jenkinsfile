@@ -8,16 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Debug Info') {
-            steps {
-                script {
-                    echo "Jenkins agent working directory: ${pwd()}"
-                    bat "docker --version"
-                    bat "docker info"
-                    bat "echo 'Docker Hub credentials: ${DOCKERHUB_USERNAME}:${DOCKERHUB_PASSWORD}'"
-                }
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
