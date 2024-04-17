@@ -26,7 +26,7 @@ pipeline {
                     script {
                         echo "Pushing Docker image: ${DOCKER_IMAGE_NAME}"
                         // Login to Docker Hub using credentials
-                        bat "echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin"
+                        bat "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
 
                         // Push Docker image to DockerHub
                         bat "docker push ${DOCKER_IMAGE_NAME}"
