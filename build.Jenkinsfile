@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     dir('C:/Users/91983/OneDrive/Desktop/Web Dev/AppliedDevopsProject') {
-                        // Build Docker image using Dockerfile and current directory as build context
+                        // Build Docker image using Dockerfile and current directory 
                         bat "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ."
                     }
                 }
