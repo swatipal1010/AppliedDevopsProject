@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     // Install Snyk CLI (if not already installed)
-                    sh 'npm install -g snyk'
+                    //sh 'npm install -g snyk'
 
                     // Authenticate with Snyk (if needed)
                     // sh 'snyk auth <your-snyk-api-token>'
