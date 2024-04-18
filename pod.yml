@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-calculator-pod
+  labels:
+    app: calculator
+spec:
+  containers:
+  - name: calculator-container
+    image: calculator:v1
