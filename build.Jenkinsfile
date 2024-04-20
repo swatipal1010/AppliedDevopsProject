@@ -15,17 +15,19 @@ pipeline {
             }
         }
 
+
         stage('Check Image Vulnerability') {
-            steps {
-                script {
-                    // Set Snyk token as environment variable
-                    withCredentials([string(credentialsId: 'synk-credentials', variable: 'SNYK_TOKEN')]) {
-                        // Perform Snyk container scan
-                        sh "snyk container test ${DOCKER_IMAGE_NAME}"
-                    }
+        steps {
+            script {
+                // Set Snyk token as environment variable
+                withCredentials([string(credentialsId: 'synk-credentials', variable: 'SNYK_TOKEN')]) {
+                    // Perform Snyk container scan
+                    sh "snyk container test ${DOCKER_IMAGE_NAME}"
                 }
             }
         }
+}
+
 
         stage('Push Docker Image to Docker Hub') {
             steps {
