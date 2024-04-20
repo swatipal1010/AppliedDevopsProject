@@ -11,12 +11,20 @@ pipeline {
 
         stage('Build Docker Image using Docker') {
             steps {
-               
-                        // Build Docker image using Dockerfile and current directory 
-                        sh "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ."
-                    }
+                // Build Docker image using Dockerfile and current directory 
+                sh "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ."
+            }
+        }
+
+        stage('Scan Docker Image for Vulnerabilities') {
+            steps {
+                // Use withCredentials to read Snyk API token
+                withCredentials([string(credentialsId: 'snyk-credentials', variable: 'SNYK_TOKEN')]) {
+                    // Run Snyk CLI to scan the Docker image
+                    sh "docker run --rm -e SNYK_TOKEN=${SNYK_TOKEN} snyk/snyk-cli test ${DOCKER_IMAGE_NAME}"
                 }
-        
+            }
+        }
 
         stage('Push Docker Image to Docker Hub') {
             steps {
@@ -33,7 +41,7 @@ pipeline {
             }
         }
 
-    //Automatically trigger the deploy pipeline
+        // Automatically trigger the deploy pipeline
         stage('Trigger Deploy') {
             steps {
                 build job: 'calculatorDeploy', wait: false, parameters: [
@@ -41,8 +49,5 @@ pipeline {
                 ]
             }
         }
-
-
     }
 }
-
