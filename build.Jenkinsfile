@@ -9,15 +9,13 @@ pipeline {
 
     stages {
 
-        stage('Build Docker Image') {
+        stage('Build Docker Image using Docker') {
             steps {
-                script {
-                    dir('C:/Users/91983/OneDrive/Desktop/Web Dev/AppliedDevopsProject') {
+               
                         // Build Docker image using Dockerfile and current directory 
                         sh "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ."
                     }
                 }
-            }
         }
 
         // stage('Push Docker Image to Docker Hub') {
