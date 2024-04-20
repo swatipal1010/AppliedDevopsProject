@@ -26,7 +26,7 @@ pipeline {
                         // Login to Docker Hub using credentials
                         sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
 
-                        // Push Docker image to DockerHub
+                        // Push Docker image to DockerHub using Jenkins Pipeline
                         sh "docker push ${DOCKER_IMAGE_NAME}"
                     }
                 }
