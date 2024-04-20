@@ -18,19 +18,19 @@ pipeline {
                 }
         }
 
-        // stage('Push Docker Image to Docker Hub') {
-        //     steps {
-        //         withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-        //             script {
-        //                 echo "Pushing Docker image: ${DOCKER_IMAGE_NAME}"
-        //                 // Login to Docker Hub using credentials
-        //                 sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
+        stage('Push Docker Image to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                    script {
+                        echo "Pushing Docker image: ${DOCKER_IMAGE_NAME}"
+                        // Login to Docker Hub using credentials
+                        sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
 
-        //                 // Push Docker image to DockerHub
-        //                 sh "docker push ${DOCKER_IMAGE_NAME}"
-        //             }
-        //         }
-        //     }
-        // }
+                        // Push Docker image to DockerHub
+                        sh "docker push ${DOCKER_IMAGE_NAME}"
+                    }
+                }
+            }
+        }
     }
 
