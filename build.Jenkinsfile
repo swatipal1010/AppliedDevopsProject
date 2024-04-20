@@ -32,6 +32,17 @@ pipeline {
                 }
             }
         }
+
+    //Automatically trigger the deploy pipeline
+        stage('Trigger Deploy') {
+            steps {
+                build job: 'calculatorDeploy', wait: false, parameters: [
+                    string(name: 'swati1010/calculator-app', value: "https://hub.docker.com/repository/docker/swati1010/calculator-app/")
+                ]
+            }
+        }
+
+
     }
 }
 
