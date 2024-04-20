@@ -16,15 +16,17 @@ pipeline {
             }
         }
 
-        stage('Scan Docker Image for Vulnerabilities') {
-            steps {
-                // Use withCredentials to read Snyk API token
-                withCredentials([string(credentialsId: 'snyk-credentials', variable: 'SNYK_TOKEN')]) {
-                    // Run Snyk CLI to scan the Docker image
-                    sh "docker run --rm -e SNYK_TOKEN=${SNYK_TOKEN} snyk/snyk-cli test ${DOCKER_IMAGE_NAME}"
-                }
+        stage('Check Image Vulnerability'){
+            steps{
+                script {
+                    // Set Snyk token as environment variable
+                    withCredentials([string(credentialsId: 'SNYK_CREDENTIALS', variable: 'SNYK_TOKEN')]) {
+                        // Perform Snyk container scan
+                        sh "snyk container test shwetasng/calculator-app"
+                    }
             }
-        }
+        }
+    }
 
         stage('Push Docker Image to Docker Hub') {
             steps {
