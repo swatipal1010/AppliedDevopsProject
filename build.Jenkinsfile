@@ -16,7 +16,7 @@ pipeline {
                         sh "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ."
                     }
                 }
-        }
+        
 
         stage('Push Docker Image to Docker Hub') {
             steps {
@@ -33,4 +33,5 @@ pipeline {
             }
         }
     }
+}
 
