@@ -21,7 +21,7 @@ pipeline {
             script {
                 // Set Snyk token as environment variable
                 withCredentials([string(credentialsId: 'synk-credentials', variable: 'SNYK_TOKEN')]) {
-                    // Perform Snyk container scan
+                    // Perform Snyk container scan on image swati1010/calculator-app
                     sh "snyk container test ${DOCKER_IMAGE_NAME}"
                 }
             }
